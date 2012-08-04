@@ -4,6 +4,8 @@ class window.Scene extends Component
     # A scene should take up the whole canvas
     @setPosition 0, 0
     @setSize @canvas.width, @canvas.height
+    bg = new Rect 0, 0, @size.w, @size.h, 'white'
+    @addChild bg
 
     # Listen for all js events and convert into out events
     for type of Event.TYPES

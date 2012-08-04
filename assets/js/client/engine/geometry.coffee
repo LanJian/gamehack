@@ -1,5 +1,6 @@
 class window.Rect extends Component
   constructor: (@x, @y, @w, @h, @color='black') ->
+    super @x, @y, @w, @h
 
   containsPoint: (x, y) ->
     x >= @x and x <= @x + @w and
@@ -11,3 +12,4 @@ class window.Rect extends Component
     ctx.rect @x, @y, @w, @h
     ctx.closePath()
     ctx.fill()
+    super ctx
