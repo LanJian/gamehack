@@ -23,6 +23,6 @@ class window.Jeep extends Unit
     # Unit Stats
     @life = 200
     @moveSpeed = 50
-    @damage = 30
-    @attackRange = 150
+    @damage = 25
+    @attackRange = 140
     @attackSpeed = 600

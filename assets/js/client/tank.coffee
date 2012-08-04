@@ -1,5 +1,5 @@
 class window.Tank extends Unit
-  @coolDown: 15000
+  @coolDown: 12000
   constructor: (playerId, @objectId, color) ->
     if color == 'blue'
       spriteMap = {
