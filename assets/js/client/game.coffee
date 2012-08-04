@@ -9,12 +9,32 @@ class window.Game extends Scene
     @init()
 
 
+  reset: (playerId, opponentId) ->
+    for unit in @player.units
+      @map.removeChild unit
+      @player.removeChild unit
+    for unit in @opponent.units
+      @map.removeChild unit
+      @opponent.removeChild unit
+
+    @map.removeChild @player.mainBase
+    @map.removeChild @opponent.mainBase
+
+    @removeChild @map
+    @removeChild @uiPanel
+
+    @player  = new Player (playerId || @player.id)
+    @opponent = new Player (opponentId || @opponent.id)
+    @refresh = false
+    @endGame = false
+
+    this.init()
+
+
   init: ->
     @map = new GameObject @player.id
     @map.setSize @size.w+500, @size.h
 
-    #bgSky = new Rect 0, 0, @size.w+500, @size.h-200, 'blue'
-    #bgGround = new Rect 0, 150, @size.w+500, 200, 'green'
     bgSprite = new SpriteImage 'background.png'
     @map.addChild bgSprite
 
@@ -113,6 +133,9 @@ class window.Game extends Scene
 
 
   update: (dt) ->
+    if @endGame
+      return
+
     if @refresh
       @refresh = false
       for u in @player.units
