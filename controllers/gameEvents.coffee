@@ -18,9 +18,8 @@ module.exports = (io) ->
       playerTwoId = playerIdCounter
       io.sockets.emit('new game', {"playerOneId": playerOneId, "playerTwoId": playerTwoId})
 
-    socket.on('blah', (data) ->
-      #io.sockets.emit('chat message', data);
-      console.log "blah"
+    socket.on('add unit', (data) ->
+      io.sockets.emit('add unit', data)
     )
 
     socket.on('disconnect', (socket) ->

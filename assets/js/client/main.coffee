@@ -31,3 +31,8 @@ socket.on("new game", (data) ->
 socket.on('in queue', (data) ->
   alert "players are playing, you're in line, refresh"
 )
+
+socket.on('add unit', (data) ->
+  game.addUnit data['playerId']
+  console.log data['playerId']
+)

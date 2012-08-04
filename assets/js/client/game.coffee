@@ -36,7 +36,10 @@ class window.Game extends Scene
         building.setPosition 0, 50
       else
         building.setPosition @map.size.w-building.size.w, 50
-      building.addListener 'click', ( -> @addUnit @player).bind this
+      #building.addListener 'click', ( -> @addUnit @player).bind this
+      building.addListener 'click', (() ->
+        socket.emit('add unit', {'playerId': @player})
+      ).bind this
     else
       if @player > @opponent
         building.setPosition 0, 50
@@ -46,6 +49,8 @@ class window.Game extends Scene
 
   addUnit: (playerId) ->
     height = 270
+    console.log 'add unit input ' + playerId
+    console.log 'playerId ' + @player
     if playerId == @player
       if @player < @opponent
         unit = new Tank(@player, 1.1, 10, 'blue')
@@ -56,7 +61,7 @@ class window.Game extends Scene
         unit.setPosition @map.size.w-100, height
         unit.setDirection -1
     else
-      if @player < @opponent
+      if @player > @opponent
         unit = new Tank(@opponent, 1.1, 10, 'blue')
         unit.setPosition 100, height
         unit.setDirection 1
