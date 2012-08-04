@@ -8,6 +8,7 @@ class window.Component
     @children = []
     @listeners = []
     @keyDownHandlers = []
+    @zIndex = 0
 
     @addListener 'resize', @onResize.bind this
     @addListener 'mouseMoveScene', @onMouseMove.bind this

@@ -100,6 +100,8 @@ class window.Game extends Scene
       if @player.id < @opponent.id
         if type == 'tank'
           unit = new Tank(@player.id, 1.1, 'blue')
+        else if type == 'jeep'
+          unit = new Jeep(@player.id, 1.1, 'blue')
         else
           unit = new Soldier(@player.id, 1.1, 'blue')
         unit.setPosition 100, height
@@ -107,6 +109,8 @@ class window.Game extends Scene
       else
         if type == 'tank'
           unit = new Tank(@player.id, 1.1, 'red')
+        else if type == 'jeep'
+          unit = new Jeep(@player.id, 1.1, 'red')
         else
           unit = new Soldier(@player.id, 1.1, 'red')
         unit.setPosition @map.size.w-135, height
@@ -116,6 +120,8 @@ class window.Game extends Scene
       if @player.id > @opponent.id
         if type == 'tank'
           unit = new Tank(@opponent.id, 1.1, 'blue')
+        else if type == 'jeep'
+          unit = new Jeep(@player.id, 1.1, 'blue')
         else
           unit = new Soldier(@opponent.id, 1.1, 'blue')
         unit.setPosition 100, height
@@ -123,6 +129,8 @@ class window.Game extends Scene
       else
         if type == 'tank'
           unit = new Tank(@opponent.id, 1.1, 'red')
+        else if type == 'jeep'
+          unit = new Jeep(@player.id, 1.1, 'red')
         else
           unit = new Soldier(@opponent.id, 1.1, 'red')
         unit.setPosition @map.size.w-135, height
