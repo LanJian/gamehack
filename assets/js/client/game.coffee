@@ -27,7 +27,6 @@ class window.Game extends Scene
     @onKeyDown 37, ( -> @scroll -6).bind this
 
     @addChild @map
-    #@addUnit @opponent
 
   addBase: (playerId) ->
     height = 210
@@ -39,15 +38,16 @@ class window.Game extends Scene
         building.setPosition 0, height
       else
         building.setPosition @map.size.w-building.size.w, height
-      #building.addListener 'click', ( -> @addUnit @player).bind this
       building.addListener 'click', (() ->
         socket.emit('add unit', {'playerId': @player.id})
       ).bind this
+      @player.addBuilding building
     else
       if @player.id > @opponent.id
         building.setPosition 0, height
       else
         building.setPosition @map.size.w-building.size.w, height
+      @opponent.addBuilding building
     @map.addChild building
 
   addUnit: (playerId, unitId, type) ->
@@ -65,9 +65,9 @@ class window.Game extends Scene
         @player.addUnit unit
       else
         if type == 'tank'
-          unit = new Tank(@opponent.id, 1.1, 'red')
+          unit = new Tank(@player.id, 1.1, 'red')
         else
-          unit = new Soldier(@opponent.id, 1.1, 'red')
+          unit = new Soldier(@player.id, 1.1, 'red')
         unit.setPosition @map.size.w-100, height
         unit.setDirection -1
         @opponent.addUnit unit
@@ -99,10 +99,17 @@ class window.Game extends Scene
           if unit.inRange enemy
             console.log 'inrange'
             unit.attack()
+        if unit.inRange @opponent.mainBase
+          console.log 'attack base'
+          console.log @opponent.mainBase.id
+          unit.attack()
       for unit in @opponent.units
         for enemy in @player.units
           if unit.inRange enemy
             unit.attack()
+        if unit.inRange @player.mainBase
+          console.log 'attack base2'
+          unit.attack()
 
     super dt
 
