@@ -11,12 +11,6 @@ class window.Unit extends GameObject
       console.log ['first sprite clicked', evt.x, evt.y, evt.target]
     sprite.addListener 'move', (evt) -> console.log 'move'
 
-    test = new Sprite spriteSheet
-    test.addAnimation 'idle', 0, 25, 40
-    test.setPosition 100, 100
-    test.play 'idle'
-
-    @addChild test
     @addChild sprite
 
     @addListener 'click', (evt) ->
@@ -35,7 +29,4 @@ class window.Unit extends GameObject
 
 
   draw: (ctx) ->
-    # test boundaries
-    rect = new Rect @position.x, @position.y, @size.w, @size.h
-    rect.draw ctx
     super ctx

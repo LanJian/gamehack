@@ -2,9 +2,8 @@ class window.Game extends Scene
   constructor: (canvas) ->
     super canvas
     @init()
+    @player1 = 1
 
 
   init: ->
-    unit = new Unit()
-    unit.setPosition 200, 100
-    @addChild unit
+    base = new Building @player1
