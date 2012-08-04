@@ -1,7 +1,8 @@
 class window.Game extends Scene
-  constructor: (@canvas, id) ->
+  constructor: (@canvas, id, opponentId) ->
     super @canvas
     @playerId = id
+    @opponentId = opponentId
     @init()
 
 
