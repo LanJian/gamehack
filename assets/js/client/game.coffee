@@ -5,6 +5,7 @@ class window.Game extends Scene
 
 
   init: ->
-    unit = new Unit()
-    unit.setPosition 200, 100
+    unit = new Unit(1, 1.1, 'hibiki.png', 1, 25, 10)
+    unit.setPosition 100, 100
+    unit.setDirection 1
     @addChild unit
