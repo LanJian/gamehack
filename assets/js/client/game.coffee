@@ -47,26 +47,38 @@ class window.Game extends Scene
         building.setPosition @map.size.w-building.size.w, 50
     @map.addChild building
 
-  addUnit: (playerId) ->
+  addUnit: (playerId, unitId, type) ->
     height = 270
     console.log 'add unit input ' + playerId
     console.log 'playerId ' + @player
     if playerId == @player
       if @player < @opponent
-        unit = new Tank(@player, 1.1, 10, 'blue')
+        if type == 'tank'
+          unit = new Tank(@player, 1.1, 10, 'blue')
+        else
+          unit = new Soldier(@player, 1.1, 5, 'blue')
         unit.setPosition 100, height
         unit.setDirection 1
       else
-        unit = new Tank(@player, 1.1, 10, 'red')
+        if type == 'tank'
+          unit = new Tank(@player, 1.1, 10, 'red')
+        else
+          unit = new Soldier(@player, 1.1, 5, 'red')
         unit.setPosition @map.size.w-100, height
         unit.setDirection -1
     else
       if @player > @opponent
-        unit = new Tank(@opponent, 1.1, 10, 'blue')
+        if type == 'tank'
+          unit = new Tank(@player, 1.1, 10, 'red')
+        else
+          unit = new Soldier(@player, 1.1, 5, 'red')
         unit.setPosition 100, height
         unit.setDirection 1
       else
-        unit = new Tank(@opponent, 1.1, 10, 'red')
+        if type == 'tank'
+          unit = new Tank(@player, 1.1, 10, 'blue')
+        else
+          unit = new Soldier(@player, 1.1, 5, 'blue')
         unit.setPosition @map.size.w-100, height
         unit.setDirection -1
     unit.addListener 'click', -> console.log 'click unit'

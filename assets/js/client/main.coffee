@@ -3,6 +3,7 @@ $(document).ready ->
 
 window.socket = io.connect("http://localhost:3000")
 id = 0
+type = 'tank'
 opponentId = 10000
 game = null
 
@@ -33,6 +34,12 @@ socket.on('in queue', (data) ->
 )
 
 socket.on('add unit', (data) ->
-  game.addUnit data['playerId']
+  if type == 'tank'
+    type = 'soldier'
+    console.log type
+    game.addUnit data['playerId'] ,1 ,type
+  else
+    type = 'tank'
+    game.addUnit data['playerId'] ,1 ,type
   console.log data['playerId']
 )
