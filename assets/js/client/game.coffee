@@ -5,7 +5,7 @@ class window.Game extends Scene
     @opponent = new Player opponentId
     @refresh = false
     @endGame = false
-    @size.w+500
+    @size.w += 500
 
     @init()
 
