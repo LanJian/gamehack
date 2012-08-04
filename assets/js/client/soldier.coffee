@@ -19,8 +19,8 @@ class window.Soldier extends Unit
     @sprite.play 'move'
 
     # Unit Stats
-    @life = 50
+    @life = 100
     @moveSpeed = 20
     @damage = 8
-    @attackRange = 70
+    @attackRange = 100
     @attackSpeed = 200
