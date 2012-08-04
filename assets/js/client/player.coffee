@@ -13,7 +13,6 @@ class window.Player
     @units.remove childToRemove
 
   dmgUp: ->
-    console.log 'dmgup'
     Tank.spDamage += 8
     Jeep.spDamage += 5
     Soldier.spDamage += 2

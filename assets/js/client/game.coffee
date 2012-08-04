@@ -84,60 +84,74 @@ class window.Game extends Scene
     @dmgUp = new CooldownButton (new SpriteImage 'dmgUp.png'), @upgradeCoolDown
     @dmgUp.setPosition 700, 0
     @dmgUp.clickAction = (() ->
-      @player.dmgUp()
-      @resetUnitCooldown 8000
-      @upgradeCoolDown += 3000
-      @resetUpgradeCooldown @upgradeCoolDown
+      socket.emit('upgrade', {'type': 'dmgUp', 'player': @player.id})
     ).bind this
     @uiPanel.addChild @dmgUp
     @lifeUp = new CooldownButton (new SpriteImage 'lifeUp.png'), @upgradeCoolDown
     @lifeUp.setPosition 750, 0
     @lifeUp.clickAction = (() ->
-      @player.lifeUp()
-      @resetUnitCooldown 8000
-      @upgradeCoolDown += 3000
-      @resetUpgradeCooldown @upgradeCoolDown
+      socket.emit('upgrade', {'type': 'lifeUp', 'player': @player.id})
     ).bind this
     @uiPanel.addChild @lifeUp
     @rangeUp = new CooldownButton (new SpriteImage 'rangeUp.png'), @upgradeCoolDown
     @rangeUp.setPosition 500, 0
     @rangeUp.clickAction = (() ->
-      @player.rangeUp()
-      @resetUnitCooldown 8000
-      @upgradeCoolDown += 3000
-      @resetUpgradeCooldown @upgradeCoolDown
+      socket.emit('upgrade', {'type': 'rangeUp', 'player': @player.id})
     ).bind this
     @uiPanel.addChild @rangeUp
     @cdUp = new CooldownButton (new SpriteImage 'cdUp.png'), @upgradeCoolDown
     @cdUp.setPosition 550, 0
     @cdUp.clickAction = (() ->
-      @player.cdUp()
-      @resetUnitCooldown 8000
-      @upgradeCoolDown += 3000
-      @resetUpgradeCooldown @upgradeCoolDown
+      socket.emit('upgrade', {'type': 'cdUp', 'player': @player.id})
     ).bind this
     @uiPanel.addChild @cdUp
     @speedUp = new CooldownButton (new SpriteImage 'speedUp.png'), @upgradeCoolDown
     @speedUp.setPosition 600, 0
     @speedUp.clickAction = (() ->
-      @player.speedUp()
-      @resetUnitCooldown 8000
-      @upgradeCoolDown += 3000
-      @resetUpgradeCooldown @upgradeCoolDown
+      socket.emit('upgrade', {'type': 'speedUp', 'player': @player.id})
     ).bind this
     @uiPanel.addChild @speedUp
     @asUp = new CooldownButton (new SpriteImage 'asUp.png'), @upgradeCoolDown
     @asUp.setPosition 650, 0
     @asUp.clickAction = (() ->
-      @player.asUp()
-      @resetUnitCooldown 8000
-      @upgradeCoolDown += 3000
-      @resetUpgradeCooldown @upgradeCoolDown
+      socket.emit('upgrade', {'type': 'asUp', 'player': @player.id})
     ).bind this
     @uiPanel.addChild @asUp
 
     @addChild @map
     @addChild @uiPanel
+
+  handleUpgrade: (data) ->
+    if data['player'] == @player.id
+      if data['type'] == 'dmgUp'
+        @player.dmgUp()
+      else if data['type'] == 'lifeUp'
+        @player.lifeUp()
+      else if data['type'] == 'rangeUp'
+        @player.rangeUp()
+      else if data['type'] == 'cdUp'
+        @player.cdUp()
+      else if data['type'] == 'speedUp'
+        @player.speedUp()
+      else if data['type'] == 'asUp'
+        @player.asUp()
+      @resetUnitCooldown 8000
+      @upgradeCoolDown += 3000
+      @resetUpgradeCooldown @upgradeCoolDown
+    else
+      if data['type'] == 'dmgUp'
+        @opponent.dmgUp()
+      else if data['type'] == 'lifeUp'
+        @opponent.lifeUp()
+      else if data['type'] == 'rangeUp'
+        @opponent.rangeUp()
+      else if data['type'] == 'cdUp'
+        @opponent.cdUp()
+      else if data['type'] == 'speedUp'
+        @opponent.speedUp()
+      else if data['type'] == 'asUp'
+        @opponent.asUp()
+
 
   resetUpgradeCooldown: (coolDown) ->
     console.log 'reset' + coolDown

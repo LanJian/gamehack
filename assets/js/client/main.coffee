@@ -42,6 +42,10 @@ socket.on('add unit', (data) ->
   console.log new Date().getTime()
 )
 
+socket.on('upgrade', (data) ->
+  game.handleUpgrade data
+)
+
 socket.on('game over', (data) ->
   console.log data
   if data[id] <= 0 and data[opponentId] <= 0

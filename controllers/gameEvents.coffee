@@ -26,6 +26,10 @@ module.exports = (io) ->
       io.sockets.emit('add unit', data)
     )
 
+    socket.on('upgrade', (data) ->
+      io.sockets.emit('upgrade', data)
+    )
+
     socket.on('game over', (data) ->
       console.log 'game over lols'
       playerIdCounter = 1
