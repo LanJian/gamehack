@@ -52,8 +52,8 @@ class window.Game extends Scene
 
   addUnit: (playerId, unitId, type) ->
     height = 270
-    console.log 'add unit input ' + playerId
-    console.log 'playerId ' + @player.id
+    if type != "tank"
+      height = 290
     if playerId == @player.id
       if @player.id < @opponent.id
         if type == 'tank'
@@ -65,26 +65,26 @@ class window.Game extends Scene
         @player.addUnit unit
       else
         if type == 'tank'
-          unit = new Tank(@player.id, 1.1, 'red')
+          unit = new Tank(@opponent.id, 1.1, 'red')
         else
-          unit = new Soldier(@player.id, 1.1, 'red')
+          unit = new Soldier(@opponent.id, 1.1, 'red')
         unit.setPosition @map.size.w-100, height
         unit.setDirection -1
         @opponent.addUnit unit
     else
       if @player.id > @opponent.id
         if type == 'tank'
-          unit = new Tank(@player.id, 1.1, 'blue')
+          unit = new Tank(@opponent.id, 1.1, 'blue')
         else
-          unit = new Soldier(@player.id, 1.1, 'blue')
+          unit = new Soldier(@opponent.id, 1.1, 'blue')
         unit.setPosition 100, height
         unit.setDirection 1
         @player.addUnit unit
       else
         if type == 'tank'
-          unit = new Tank(@player.id, 1.1, 'red')
+          unit = new Tank(@opponent.id, 1.1, 'red')
         else
-          unit = new Soldier(@player.id, 1.1, 'red')
+          unit = new Soldier(@opponent.id, 1.1, 'red')
         unit.setPosition @map.size.w-100, height
         unit.setDirection -1
         @opponent.addUnit unit

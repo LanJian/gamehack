@@ -9,8 +9,8 @@ class window.Soldier extends Unit
 
     super playerId, @objectId, spriteMap
 
-    @sprite.addAnimation 'move', 'moving', 0, 5, 24
-    @sprite.addAnimation 'attack', 'attacking', 0, 1, 12
+    @sprite.addAnimation 'move', 'moving', 0, 6, 24
+    @sprite.addAnimation 'attack', 'attacking', 0, 2, 12
     console.log @sprite.animations
     @addListener 'click', ((evt) ->
       @attack()).bind this
