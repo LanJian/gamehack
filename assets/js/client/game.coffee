@@ -38,11 +38,12 @@ class window.Game extends Scene
 
   addUnit: (playerId) ->
     console.log this
-    unit = new Tank(@playerId, 1.1, 10)
     if playerId == @player
+      unit = new Tank(@playerId, 1.1, 10, 'blue')
       unit.setPosition 100, 100
       unit.setDirection 1
     else
+      unit = new Tank(@playerId, 1.1, 10, 'red')
       unit.setPosition @map.size.w-100, 100
       unit.setDirection -1
     @map.addChild unit

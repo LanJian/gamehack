@@ -1,7 +1,9 @@
 class window.Tank extends Unit
-  constructor: (playerId, @objectId, @speed) ->
-    spriteMap = { 'moving': new SpriteSheet 'BlueTankMoving.png', 1, 6}
-
+  constructor: (playerId, @objectId, @speed, color) ->
+  	if color == 'blue'
+      spriteMap = { 'moving': new SpriteSheet 'BlueTankMoving.png', 1, 6}
+    else 
+    	spriteMap = { 'moving': new SpriteSheet 'RedTankMoving.png', 1, 6} 
     super playerId, @objectId, spriteMap
 
     # Unit Stats
