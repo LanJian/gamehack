@@ -85,6 +85,8 @@ class window.Component
       evt.x = evt.x + child.position.x
       evt.y = evt.y + child.position.y
 
+    if evt.type == 'click'
+      console.log [this, evt.target, evt.x, evt.y]
     for listener in @listeners
       if evt.type == listener.type
         listener.handler evt
