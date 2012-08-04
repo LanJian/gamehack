@@ -10,6 +10,14 @@ class window.Unit extends GameObject
     sprite.play 'idle'
 
     @addChild sprite
+
+    # Unit Stats
+    @life = undefined
+    @moveSpeed = undefined
+    @damage = undefined
+    @attackRage = undefined
+    @attackSpeed = undefined
+
     ###
 
     sprite.addListener 'click', (evt) ->

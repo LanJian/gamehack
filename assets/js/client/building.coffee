@@ -5,3 +5,6 @@ class window.Building extends GameObject
 
     sprite = new Rect 0, 0, @size.w, @size.h
     @addChild sprite
+
+    # Building Stats
+    @life = undefined
