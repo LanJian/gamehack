@@ -13,8 +13,8 @@ class window.Tank extends Unit
 
     super playerId, @objectId, spriteMap
 
-    @sprite.addAnimation 'move', 'moving', 0, 5, 24
-    @sprite.addAnimation 'attack', 'attacking', 0, 3, 24
+    @sprite.addAnimation 'move', 'moving', 0, 6, 24
+    @sprite.addAnimation 'attack', 'attacking', 0, 4, 24
     console.log @sprite.animations
     @addListener 'click', ((evt) ->
       @attack()).bind this
