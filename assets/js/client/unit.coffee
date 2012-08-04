@@ -27,6 +27,7 @@ class window.Unit extends GameObject
     if @target
       @curInterval += dt
       if @curInterval >= @attackSpeed
+        @sprite.playOnce 'attack'
         @target.takeDamage @damage
         @curInterval = @curInterval % @attackSpeed
     super dt
@@ -42,7 +43,7 @@ class window.Unit extends GameObject
   attack: (target)->
     @target = target
     @objectDirection = 0
-    @sprite.play 'attack'
+    #@sprite.stop()
 
 
   inRange: (enemy) ->

@@ -12,6 +12,12 @@ class window.CooldownButton extends Component
       @enabled = false
       @curInterval = 0
       @clickAction()
+
+
+  doCoolDown: (cd) ->
+    @enabled = false
+    @cooldown = cd
+    @curInterval = 0
       
 
   update: (dt) ->

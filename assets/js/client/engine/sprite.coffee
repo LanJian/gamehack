@@ -7,6 +7,7 @@ class window.Sprite extends Component
 
     @playingAnimation = 'none'
     @isPlaying = false
+    @loop = true
 
     @addListener 'spriteImageLoaded', @onSpriteImageLoaded.bind this
 
@@ -49,11 +50,20 @@ class window.Sprite extends Component
     @frameIndex = 0
     @curInterval = 0
 
+  playOnce: (id) ->
+    if id and @playingAnimation != id
+      @playingAnimation = id
+      @reset()
+      @loop = false
+
+    @isPlaying = true
+
 
   play: (id) ->
     if id and @playingAnimation != id
       @playingAnimation = id
       @reset()
+      @loop = true
 
     @isPlaying = true
 
@@ -71,6 +81,8 @@ class window.Sprite extends Component
       @curInterval += dt
       if @curInterval >= anim.frameInterval
         @frameIndex++
+        if (@frameIndex >= anim.duration) and not @loop
+          @stop()
         @frameIndex = @frameIndex % anim.duration
         @curInterval = @curInterval % anim.frameInterval
 

@@ -56,16 +56,19 @@ class window.Game extends Scene
     @spawnTank.setPosition 5, 0
     @spawnTank.clickAction = (() ->
       socket.emit('add unit', {'playerId': @player.id, 'type': 'tank'})
+      @resetGlobalCooldown Tank.coolDown
     ).bind this
     @spawnSoldier = new CooldownButton (new SpriteImage 'Soldier.png'), Soldier.coolDown
     @spawnSoldier.setPosition 65, 0
     @spawnSoldier.clickAction = (() ->
       socket.emit('add unit', {'playerId': @player.id, 'type': 'soldier'})
+      @resetGlobalCooldown Soldier.coolDown
     ).bind this
     @spawnJeep = new CooldownButton (new SpriteImage 'Jeep.png'), Jeep.coolDown
     @spawnJeep.setPosition 125, 0
     @spawnJeep.clickAction = (() ->
       socket.emit('add unit', {'playerId': @player.id, 'type': 'jeep'})
+      @resetGlobalCooldown Jeep.coolDown
     ).bind this
     @uiPanel.addChild @spawnTank
     @uiPanel.addChild @spawnSoldier
@@ -73,6 +76,11 @@ class window.Game extends Scene
 
     @addChild @map
     @addChild @uiPanel
+
+  resetGlobalCooldown: (coolDown) ->
+    @spawnTank.doCoolDown coolDown
+    @spawnJeep.doCoolDown coolDown
+    @spawnSoldier.doCoolDown coolDown
 
   addBase: (playerId) ->
     height = 210
