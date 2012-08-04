@@ -3,6 +3,7 @@ class window.Game extends Scene
     super @canvas
     @player  = new Player id
     @opponent = new Player opponentId
+    @refresh = false
 
     @init()
 
@@ -92,8 +93,30 @@ class window.Game extends Scene
 
 
   update: (dt) ->
+    if @refresh
+      @refresh = false
+      for u in @player.units
+        if @player.id < @opponent.id
+          u.objectDirection = 1
+        else
+          u.objectDirection = -1
+        u.target = undefined
+        u.sprite.play 'move'
+      for u in @opponent.units
+        if @player.id < @opponent.id
+          u.objectDirection = -1
+        else
+          u.objectDirection = 1
+        u.target = undefined
+        u.sprite.play 'move'    
+
     if @player and @opponent
       for unit in @player.units
+        if unit.life
+          if unit.life <= 0 
+            @map.removeChild unit
+            @player.removeChild unit
+            @refresh = true
         for enemy in @opponent.units
           if unit.inRange enemy
             console.log 'inrange'
@@ -104,6 +127,11 @@ class window.Game extends Scene
           console.log @opponent.mainBase.id
           unit.attack @opponent.mainBase
       for unit in @opponent.units
+        if unit.life
+          if unit.life <= 0 
+            @map.removeChild unit
+            @opponent.removeChild unit
+            @refresh = true
         for enemy in @player.units
           if unit.inRange enemy
             unit.attack enemy

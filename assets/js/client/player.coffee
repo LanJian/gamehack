@@ -8,3 +8,8 @@ class window.Player
 
   addBuilding: (building) ->
     @mainBase = building
+
+  removeChild: (childToRemove) ->
+    @units.remove childToRemove
+
+  Array::remove = (e) -> @[t..t] = [] if (t = @indexOf(e)) > -1
