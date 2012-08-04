@@ -4,6 +4,7 @@ class window.Game extends Scene
     @player  = new Player id
     @opponent = new Player opponentId
     @refresh = false
+    @endGame = false
 
     @init()
 
@@ -107,12 +108,12 @@ class window.Game extends Scene
         else
           u.objectDirection = 1
         u.target = undefined
-        u.sprite.play 'move'    
+        u.sprite.play 'move'
 
     if @player and @opponent
       for unit in @player.units
         if unit.life
-          if unit.life <= 0 
+          if unit.life <= 0
             @map.removeChild unit
             @player.removeChild unit
             @refresh = true
@@ -122,12 +123,10 @@ class window.Game extends Scene
             unit.attack enemy
             break
         if unit.inRange @opponent.mainBase
-          console.log 'attack base'
-          console.log @opponent.mainBase.id
           unit.attack @opponent.mainBase
       for unit in @opponent.units
         if unit.life
-          if unit.life <= 0 
+          if unit.life <= 0
             @map.removeChild unit
             @opponent.removeChild unit
             @refresh = true
@@ -136,8 +135,16 @@ class window.Game extends Scene
             unit.attack enemy
             break
         if unit.inRange @player.mainBase
-          console.log 'attack base2'
           unit.attack @player.mainBase
+
+      if !@endGame and @player.mainBase.life <= 0
+        @endGame = true
+        id1 = @player.id
+        id2 = @opponent.id
+        data = {}
+        data[id1] = @player.mainBase.life
+        data[id2] = @opponent.mainBase.life
+        socket.emit('game over', data)
 
     super dt
 
