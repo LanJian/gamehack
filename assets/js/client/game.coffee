@@ -1,36 +1,50 @@
 class window.Game extends Scene
   constructor: (@canvas, id, opponentId) ->
     super @canvas
-    @playerId = id
-    @opponentId = opponentId
+    @player = id
+    @opponent = opponentId
     @init()
 
 
   init: ->
     @map = new GameObject @playerId
+    @map.setSize @size.w+500, @size.h
 
     bgSky = new Rect 0, 0, @size.w+500, @size.h-200, 'blue'
     bgGround = new Rect 0, 150, @size.w+500, 200, 'green'
     @map.addChild bgSky
     @map.addChild bgGround
 
-    building = new Building @playerId
-    building.setPosition 0, 50
-    building.addListener 'click', @addUnit.bind this
-    @map.addChild building
+    @addBase @player
+    @addBase @opponent
 
     @onKeyDown 39, ( ->
-      @scroll 3).bind this
-    @onKeyDown 37, ( -> @scroll -3).bind this
+      @scroll 6).bind this
+    @onKeyDown 37, ( -> @scroll -6).bind this
 
     @addChild @map
+    @addUnit @opponent
 
-  addUnit: ->
+  addBase: (playerId) ->
+    building = new Building playerId
+    # fine for now, but maybe use a Player object later?
+    if playerId == @player
+      building.setPosition 0, 50
+      building.addListener 'click', ( -> @addUnit @player).bind this
+    else
+      building.setPosition @map.size.w-building.size.w, 50
+    @map.addChild building
+    console.log @map.children
+
+  addUnit: (playerId) ->
     console.log this
-   # unit = new Unit(@playerId, 1.1, 'hibiki.png', 1, 25, 10)
     unit = new Tank(@playerId, 1.1, 10)
-    unit.setPosition 100, 100
-    unit.setDirection 1
+    if playerId == @player
+      unit.setPosition 100, 100
+      unit.setDirection 1
+    else
+      unit.setPosition @map.size.w-100, 100
+      unit.setDirection -1
     @map.addChild unit
 
 
