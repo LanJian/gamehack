@@ -1,8 +1,8 @@
 class window.Game extends Scene
-  constructor: (@canvas) ->
+  constructor: (@canvas, id, opponentId) ->
     super @canvas
-    @player = 1
-    @opponent = 2
+    @player = id
+    @opponent = opponentId
     @init()
 
 
@@ -10,8 +10,10 @@ class window.Game extends Scene
     @map = new GameObject @playerId
     @map.setSize @size.w+500, @size.h
 
-    bg = new Rect 0, 0, @map.size.w, @map.size.h, 'white'
-    @map.addChild bg
+    bgSky = new Rect 0, 0, @size.w+500, @size.h-200, 'blue'
+    bgGround = new Rect 0, 150, @size.w+500, 200, 'green'
+    @map.addChild bgSky
+    @map.addChild bgGround
 
     @addBase @player
     @addBase @opponent
