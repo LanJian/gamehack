@@ -18,6 +18,9 @@ class window.Game extends Scene
     @addBase @player
     @addBase @opponent
 
+    if @player > @opponent
+      @map.position.x = -@map.size.w + @canvas.width
+
     @onKeyDown 39, ( ->
       @scroll 6).bind this
     @onKeyDown 37, ( -> @scroll -6).bind this
