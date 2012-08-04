@@ -79,7 +79,6 @@ class window.Game extends Scene
           unit = new Soldier(@opponent.id, 1.1, 'blue')
         unit.setPosition 100, height
         unit.setDirection 1
-        @opponent.addUnit unit
       else
         if type == 'tank'
           unit = new Tank(@opponent.id, 1.1, 'red')

@@ -37,10 +37,10 @@ socket.on('add unit', (data) ->
   if type == 'tank'
     type = 'soldier'
     console.log type
-    game.addUnit data['playerId'] ,1 ,type
+    game.addUnit data['playerId'], 1, type
   else
     type = 'tank'
-    game.addUnit data['playerId'] ,1 ,type
+    game.addUnit data['playerId'], 1, type
   console.log data['playerId']
   console.log new Date().getTime()
 )
