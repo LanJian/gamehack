@@ -9,6 +9,7 @@ module.exports = (io) ->
       return
 
     console.log "connection"
+    console.log 'playerid:' + playerCounter
     socket.emit('player id', {'id': playerIdCounter})
 
     playerCounter++
@@ -24,12 +25,17 @@ module.exports = (io) ->
 
     socket.on('game over', (data) ->
       console.log 'game over lols'
+      playerIdCounter = 1
+      playerCounter = 0
+      playerOneId = 0
+      playerTwoId = 0
       io.sockets.emit('game over', data)
     )
 
     socket.on('disconnect', (socket) ->
       playerCounter--
-      if playerCounter == 0
+      if playerCounter <= 0
+        playerCounter = 0
         playerIdCounter = 1
     )
     playerIdCounter++

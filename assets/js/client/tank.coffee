@@ -23,7 +23,7 @@ class window.Tank extends Unit
 
     # Unit Stats
     @life = 100
-    @moveSpeed = 50
+    @moveSpeed = 100
     @damage = 5
     @attackRange = 100
     @attackSpeed = 50
