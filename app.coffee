@@ -5,7 +5,7 @@ assets = require('connect-assets')
 app = express()
 app.use assets()
 app.use express.bodyParser()
-app.use express.static "#{__dirname}/public"
+app.use express.static "#{__dirname}/assets"
 app.set 'view engine', 'jade'
 
 app.get('/', (req, res) ->
