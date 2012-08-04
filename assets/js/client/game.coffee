@@ -1,13 +1,12 @@
 class window.Game extends Scene
-  constructor: (canvas) ->
-    super canvas
+  constructor: (@canvas) ->
+    super @canvas
     @playerId = 1
     @init()
 
 
   init: ->
     @map = new GameObject @playerId
-    @map.setSize @size.w, @size.h
 
     bg = new Rect 0, 0, @size.w+500, @size.h, 'white'
     @map.addChild bg
@@ -35,3 +34,5 @@ class window.Game extends Scene
     @map.position.x -= dist
     if @map.position.x > 0
       @map.position.x = 0
+    else if @map.position.x < -@map.size.w + @canvas.width
+      @map.position.x = -@map.size.w + @canvas.width

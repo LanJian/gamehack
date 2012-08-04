@@ -2,6 +2,8 @@ class window.Component
   constructor: (x=0, y=0, w=0, h=0) ->
     @position = {x:x, y:y}
     @size = {w:w, h:h}
+    # bit hacky, but dispatch a resize event
+    @setSize w, h
     @isMouseOver = false
     @children = []
     @listeners = []
