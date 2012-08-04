@@ -25,10 +25,15 @@ head
   != js('client/main')
 
 body
+  div.navbar.navbar-fixed-top
+    div.navbar-inner
+      div.container
+        a.brand Codename Pew Pew
+  div.filler
   div.container
     div.row
-      h1 random stuff
-    canvas#canvas(tabindex='0', width=800, height=600)
-      Browser not compatible with HTML5 canvas
+      div.span12
+        canvas#canvas(tabindex='0', width=940, height=605)
+          Browser not compatible with HTML5 canvas
 
 | </html>
