@@ -178,7 +178,7 @@ class window.Game extends Scene
             unit.attack enemy
             canAttack = false
             break
-        if unit.inRange @opponent.mainBase and canAttack
+        if unit.inRange(@opponent.mainBase) and canAttack
           unit.attack @opponent.mainBase
       for unit in @opponent.units
         canAttack = true
@@ -192,7 +192,7 @@ class window.Game extends Scene
             unit.attack enemy
             canAttack = false
             break
-        if unit.inRange @player.mainBase and canAttack
+        if unit.inRange(@player.mainBase) and canAttack
           unit.attack @player.mainBase
 
       if !@endGame and @player.mainBase.life <= 0
