@@ -51,17 +51,17 @@ class window.Game extends Scene
     # UI
     @uiPanel = new Component 50, 5, @canvas.width-100, 50
     @uiPanel.addChild new SpriteImage 'TopBar.png'
-    @spawnTank = new CooldownButton (new SpriteImage 'Tank.png'), 5000
+    @spawnTank = new CooldownButton (new SpriteImage 'Tank.png'), Tank.coolDown
     @spawnTank.setPosition 5, 0
     @spawnTank.clickAction = (() ->
       socket.emit('add unit', {'playerId': @player.id, 'type': 'tank'})
     ).bind this
-    @spawnSoldier = new CooldownButton (new SpriteImage 'Soldier.png'), 5000
+    @spawnSoldier = new CooldownButton (new SpriteImage 'Soldier.png'), Soldier.coolDown
     @spawnSoldier.setPosition 65, 0
     @spawnSoldier.clickAction = (() ->
       socket.emit('add unit', {'playerId': @player.id, 'type': 'soldier'})
     ).bind this
-    @spawnJeep = new CooldownButton (new SpriteImage 'Jeep.png'), 5000
+    @spawnJeep = new CooldownButton (new SpriteImage 'Jeep.png'), Jeep.coolDown
     @spawnJeep.setPosition 125, 0
     @spawnJeep.clickAction = (() ->
       socket.emit('add unit', {'playerId': @player.id, 'type': 'jeep'})

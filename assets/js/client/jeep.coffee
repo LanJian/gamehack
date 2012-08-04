@@ -1,4 +1,5 @@
 class window.Jeep extends Unit
+  @coolDown: 5500
   constructor: (playerId, @objectId, color) ->
     if color == 'blue'
       spriteMap = {
@@ -14,14 +15,14 @@ class window.Jeep extends Unit
     super playerId, @objectId, spriteMap
 
     @sprite.addAnimation 'move', 'moving', 0, 6, 24
-    @sprite.addAnimation 'attack', 'attacking', 0, 6, 24
+    @sprite.addAnimation 'attack', 'attacking', 0, 6, 10
     console.log @sprite.animations
 
     @sprite.play 'move'
 
     # Unit Stats
-    @life = 100
+    @life = 200
     @moveSpeed = 50
-    @damage = 5
+    @damage = 10
     @attackRange = 100
-    @attackSpeed = 50
+    @attackSpeed = 250
