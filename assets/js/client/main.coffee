@@ -3,7 +3,7 @@ $(document).ready ->
 
 socket = io.connect("http://localhost:3000")
 id = 0
-opponentId = 0
+opponentId = 10000
 
 #init = ->
 #  canvas = $('#canvas')[0]
@@ -13,7 +13,7 @@ socket.on("player id", (data) ->
   console.log data['id']
   id = data['id']
   canvas = $('#canvas')[0]
-  game = new Game canvas, id
+  game = new Game canvas, id, opponentId
 )
 
 socket.on("new game", (data) ->
@@ -23,4 +23,5 @@ socket.on("new game", (data) ->
   else
     opponentId = data['playerOneId']
   game = new Game canvas, id, opponentId
+  console.log 'id ' + id + ' opp ' + opponentId
 )

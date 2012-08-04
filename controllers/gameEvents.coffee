@@ -6,7 +6,6 @@ module.exports = (io) ->
   io.sockets.on('connection', (socket) ->
     console.log "connection"
     socket.emit('player id', {'id': playerIdCounter})
-    playerIdCounter++
 
     playerCounter++
     if playerCounter == 1
@@ -25,4 +24,5 @@ module.exports = (io) ->
       if playerCounter == 0
         playerIdCounter = 1
     )
+    playerIdCounter++
   )
