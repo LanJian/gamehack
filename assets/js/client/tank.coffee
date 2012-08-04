@@ -8,12 +8,12 @@ class window.Tank extends Unit
       'attacking' : (new SpriteSheet 'RedTankAttacking.png', 1, 4)} 
 
     super playerId, @objectId, spriteMap
-    
+
     @sprite.addAnimation 'move', 'moving', 0, 5, 24
     @sprite.addAnimation 'attack', 'attacking', 0, 3, 24
     console.log @sprite.animations
     @addListener 'click', ((evt) ->
-      @sprite.play 'attack').bind this
+      @attack()).bind this
 
     @sprite.play 'move'
     

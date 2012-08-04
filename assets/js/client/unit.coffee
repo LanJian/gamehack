@@ -50,3 +50,8 @@ class window.Unit extends GameObject
   setDirection: (direction) ->
     @objectDirection = direction
 
+  attack: ->
+    # Stop the think
+    @objectDirection = 0
+    @sprite.play 'attack'
+
