@@ -1,13 +1,14 @@
 class window.Game extends Scene
   constructor: (@canvas, id, opponentId) ->
     super @canvas
-    @player = id
-    @opponent = opponentId
+    @player  = new Player id
+    @opponent = new Player opponentId
+
     @init()
 
 
   init: ->
-    @map = new GameObject @playerId
+    @map = new GameObject @player.id
     @map.setSize @size.w+500, @size.h
 
     #bgSky = new Rect 0, 0, @size.w+500, @size.h-200, 'blue'
@@ -15,10 +16,10 @@ class window.Game extends Scene
     bgSprite = new SpriteImage 'background.png'
     @map.addChild bgSprite
 
-    @addBase @player
-    @addBase @opponent
+    @addBase @player.id
+    @addBase @opponent.id
 
-    if @player > @opponent
+    if @player.id > @opponent.id
       @map.position.x = -@map.size.w + @canvas.width
 
     @onKeyDown 39, ( ->
@@ -32,19 +33,18 @@ class window.Game extends Scene
     height = 210
     building = new Building playerId
     building.setSize 226, 100
-    console.log [building.size.w, building.size.h]
     # fine for now, but maybe use a Player object later?
-    if playerId == @player
-      if @player < @opponent
+    if playerId == @player.id
+      if @player.id < @opponent.id
         building.setPosition 0, height
       else
         building.setPosition @map.size.w-building.size.w, height
       #building.addListener 'click', ( -> @addUnit @player).bind this
       building.addListener 'click', (() ->
-        socket.emit('add unit', {'playerId': @player})
+        socket.emit('add unit', {'playerId': @player.id})
       ).bind this
     else
-      if @player > @opponent
+      if @player.id > @opponent.id
         building.setPosition 0, height
       else
         building.setPosition @map.size.w-building.size.w, height
@@ -53,39 +53,59 @@ class window.Game extends Scene
   addUnit: (playerId, unitId, type) ->
     height = 270
     console.log 'add unit input ' + playerId
-    console.log 'playerId ' + @player
-    if playerId == @player
-      if @player < @opponent
+    console.log 'playerId ' + @player.id
+    if playerId == @player.id
+      if @player.id < @opponent.id
         if type == 'tank'
-          unit = new Tank(@player, 1.1, 'blue')
+          unit = new Tank(@player.id, 1.1, 'blue')
         else
-          unit = new Soldier(@player, 1.1, 'blue')
+          unit = new Soldier(@player.id, 1.1, 'blue')
         unit.setPosition 100, height
         unit.setDirection 1
+        @player.addUnit unit
       else
         if type == 'tank'
-          unit = new Tank(@player, 1.1, 'red')
+          unit = new Tank(@player.id, 1.1, 'red')
         else
-          unit = new Soldier(@player, 1.1, 'red')
+          unit = new Soldier(@player.id, 1.1, 'red')
         unit.setPosition @map.size.w-100, height
         unit.setDirection -1
+        @opponent.addUnit unit
     else
-      if @player > @opponent
+      if @player.id > @opponent.id
         if type == 'tank'
-          unit = new Tank(@player, 1.1, 'blue')
+          unit = new Tank(@player.id, 1.1, 'blue')
         else
-          unit = new Soldier(@player, 1.1, 'blue')
+          unit = new Soldier(@player.id, 1.1, 'blue')
         unit.setPosition 100, height
         unit.setDirection 1
+        @player.addUnit unit
       else
         if type == 'tank'
-          unit = new Tank(@player, 1.1, 'red')
+          unit = new Tank(@player.id, 1.1, 'red')
         else
-          unit = new Soldier(@player, 1.1, 'red')
+          unit = new Soldier(@player.id, 1.1, 'red')
         unit.setPosition @map.size.w-100, height
         unit.setDirection -1
+        @opponent.addUnit unit
     unit.addListener 'click', -> console.log 'click unit'
     @map.addChild unit
+
+
+  update: (dt) ->
+    if @player and @opponent
+      for unit in @player.units
+        for enemy in @opponent.units
+          if unit.inRange enemy
+            console.log 'inrange'
+            unit.attack()
+      for unit in @opponent.units
+        for enemy in @player.units
+          if unit.inRange enemy
+            unit.attack()
+
+    super dt
+
 
 
   scroll: (dist) ->

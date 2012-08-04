@@ -42,4 +42,5 @@ socket.on('add unit', (data) ->
     type = 'tank'
     game.addUnit data['playerId'] ,1 ,type
   console.log data['playerId']
+  console.log new Date().getTime()
 )

@@ -12,33 +12,9 @@ class window.Unit extends GameObject
     @life = undefined
     @moveSpeed = undefined
     @damage = undefined
-    @attackRage = undefined
+    @attackRange = undefined
     @attackSpeed = undefined
 
-    ###
-
-    sprite.addListener 'click', (evt) ->
-      console.log ['first sprite clicked', evt.x, evt.y, evt.target]
-    sprite.addListener 'move', (evt) -> console.log 'move'
-
-    @addChild sprite
-
-    @addListener 'click', (evt) ->
-      console.log ['unit clicked', evt.x, evt.y, evt.target]
-    @addListener 'mouseOut', ((evt) ->
-      if this == evt.target
-        console.log [evt.target, 'mouse out']).bind this
-    @addListener 'mouseOver', ((evt) ->
-      if this == evt.target
-        console.log [evt.target, 'mouse over']).bind this
-    @addListener 'mouseMove', -> console.log 'mouse move'
-    @onKeyDown 65, -> console.log 'a pressed'
-
-
-    setTimeout (( -> sprite.stop()).bind this), 5000
-    setTimeout (( -> sprite.play()).bind this), 8000
-
-###
 
   move: (x) ->
     @position.x += (@objectDirection * x)
@@ -55,3 +31,13 @@ class window.Unit extends GameObject
     @objectDirection = 0
     @sprite.play 'attack'
 
+
+  inRange: (enemy) ->
+    dist = enemy.position.x - (@position.x + @size.w)
+    if @position.x > enemy.position.x
+      dist = @position.x - (enemy.position.x + enemy.size.w)
+    if dist < 0
+      dist = dist * -1
+    if dist <= @attackRange
+      return true
+    return false
