@@ -2,7 +2,7 @@ class window.SpriteSheet
   constructor: (@filename, @rows, @cols) ->
     @data = []
     @image = new Image
-    @image.src = '../resources/' + @filename
+    @image.src = '/img/' + @filename
     @image.onload = @onImageLoaded.bind this
     @loaded = false
 
