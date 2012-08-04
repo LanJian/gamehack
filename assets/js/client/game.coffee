@@ -97,18 +97,20 @@ class window.Game extends Scene
         for enemy in @opponent.units
           if unit.inRange enemy
             console.log 'inrange'
-            unit.attack()
+            unit.attack enemy
+            break
         if unit.inRange @opponent.mainBase
           console.log 'attack base'
           console.log @opponent.mainBase.id
-          unit.attack()
+          unit.attack @opponent.mainBase
       for unit in @opponent.units
         for enemy in @player.units
           if unit.inRange enemy
-            unit.attack()
+            unit.attack enemy
+            break
         if unit.inRange @player.mainBase
           console.log 'attack base2'
-          unit.attack()
+          unit.attack @player.mainBase
 
     super dt
 

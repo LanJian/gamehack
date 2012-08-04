@@ -6,4 +6,8 @@ class window.Building extends GameObject
     @addChild sprite
 
     # Building Stats
-    @life = undefined
+    @life = 1000
+
+
+  takeDamage: (dmg) ->
+    @life -= dmg

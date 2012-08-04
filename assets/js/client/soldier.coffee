@@ -19,7 +19,7 @@ class window.Soldier extends Unit
 
     # Unit Stats
     @life = 10
-    @moveSpeed = 20
+    @moveSpeed = 50
     @damage = 2
     @attackRange = 100
     @attackSpeed = 100
