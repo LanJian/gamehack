@@ -3,6 +3,8 @@ class window.Game extends Scene
     super @canvas
     @player  = new Player id
     @opponent = new Player opponentId
+    @refresh = false
+    @endGame = false
 
     @init()
 
@@ -92,7 +94,6 @@ class window.Game extends Scene
           unit = new Soldier(@opponent.id, 1.1, 'blue')
         unit.setPosition 100, height
         unit.setDirection 1
-        @opponent.addUnit unit
       else
         if type == 'tank'
           unit = new Tank(@opponent.id, 1.1, 'red')
@@ -106,25 +107,58 @@ class window.Game extends Scene
 
 
   update: (dt) ->
+    if @refresh
+      @refresh = false
+      for u in @player.units
+        if @player.id < @opponent.id
+          u.objectDirection = 1
+        else
+          u.objectDirection = -1
+        u.target = undefined
+        u.sprite.play 'move'
+      for u in @opponent.units
+        if @player.id < @opponent.id
+          u.objectDirection = -1
+        else
+          u.objectDirection = 1
+        u.target = undefined
+        u.sprite.play 'move'
+
     if @player and @opponent
       for unit in @player.units
+        if unit.life
+          if unit.life <= 0
+            @map.removeChild unit
+            @player.removeChild unit
+            @refresh = true
         for enemy in @opponent.units
           if unit.inRange enemy
             console.log 'inrange'
             unit.attack enemy
             break
         if unit.inRange @opponent.mainBase
-          console.log 'attack base'
-          console.log @opponent.mainBase.id
           unit.attack @opponent.mainBase
       for unit in @opponent.units
+        if unit.life
+          if unit.life <= 0
+            @map.removeChild unit
+            @opponent.removeChild unit
+            @refresh = true
         for enemy in @player.units
           if unit.inRange enemy
             unit.attack enemy
             break
         if unit.inRange @player.mainBase
-          console.log 'attack base2'
           unit.attack @player.mainBase
+
+      if !@endGame and @player.mainBase.life <= 0
+        @endGame = true
+        id1 = @player.id
+        id2 = @opponent.id
+        data = {}
+        data[id1] = @player.mainBase.life
+        data[id2] = @opponent.mainBase.life
+        socket.emit('game over', data)
 
     super dt
 

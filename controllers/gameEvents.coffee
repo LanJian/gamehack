@@ -22,6 +22,11 @@ module.exports = (io) ->
       io.sockets.emit('add unit', data)
     )
 
+    socket.on('game over', (data) ->
+      console.log 'game over lols'
+      io.sockets.emit('game over', data)
+    )
+
     socket.on('disconnect', (socket) ->
       playerCounter--
       if playerCounter == 0

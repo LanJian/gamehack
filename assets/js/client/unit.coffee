@@ -31,6 +31,7 @@ class window.Unit extends GameObject
         @curInterval = @curInterval % @attackSpeed
     super dt
 
+
   takeDamage: (dmg) ->
     @life -= dmg
     console.log [this, @life]

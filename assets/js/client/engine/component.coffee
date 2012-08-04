@@ -25,6 +25,8 @@ class window.Component
         h = ch
     @size = {w:w, h:h}
 
+  Array::remove = (e) -> @[t..t] = [] if (t = @indexOf(e)) > -1
+
 
   onMouseMove: (evt) ->
     if not @isMouseOver and @containsPoint evt.x, evt.y
@@ -39,6 +41,10 @@ class window.Component
 
   addChild: (child) ->
     @children.push child
+
+  removeChild: (childToRemove) ->
+    @children.remove childToRemove
+
 
 
   addListener: (type, handler) ->

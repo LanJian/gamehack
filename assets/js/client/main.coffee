@@ -35,13 +35,15 @@ socket.on('in queue', (data) ->
 
 socket.on('add unit', (data) ->
   game.addUnit data['playerId'], 1, data['type']
-  #if type == 'tank'
-    #type = 'soldier'
-    #console.log type
-    #game.addUnit data['playerId'] ,1 ,type
-  #else
-    #type = 'tank'
-    #game.addUnit data['playerId'] ,1 ,type
-  #console.log data['playerId']
   console.log new Date().getTime()
+)
+
+socket.on('game over', (data) ->
+  console.log data
+  if data[id] <= 0 and data[opponentId] <= 0
+    alert 'tie! you both lose - new game starting in 5 seconds'
+  else if data[id] <= 0
+    alert 'you lose! new game starting in 5 seconds'
+  else
+    alert 'you win! new game starting in 5 seconds'
 )
