@@ -9,12 +9,32 @@ class window.Game extends Scene
     @init()
 
 
+  reset: (playerId, opponentId) ->
+    for unit in @player.units
+      @map.removeChild unit
+      @player.removeChild unit
+    for unit in @opponent.units
+      @map.removeChild unit
+      @opponent.removeChild unit
+
+    @map.removeChild @player.mainBase
+    @map.removeChild @opponent.mainBase
+
+    @removeChild @map
+    @removeChild @uiPanel
+
+    @player  = new Player (playerId || @player.id)
+    @opponent = new Player (opponentId || @opponent.id)
+    @refresh = false
+    @endGame = false
+
+    this.init()
+
+
   init: ->
     @map = new GameObject @player.id
     @map.setSize @size.w+500, @size.h
 
-    #bgSky = new Rect 0, 0, @size.w+500, @size.h-200, 'blue'
-    #bgGround = new Rect 0, 150, @size.w+500, 200, 'green'
     bgSprite = new SpriteImage 'background.png'
     @map.addChild bgSprite
 
@@ -30,19 +50,25 @@ class window.Game extends Scene
 
     # UI
     @uiPanel = new Component 50, 5, @canvas.width-100, 50
-    @uiPanel.addChild new Rect 0, 0, @uiPanel.size.w, @uiPanel.size.h, 'red'
-    @spawnTank = new CooldownButton (new Rect 0, 0, 50, 50, 'green'), 5000
+    @uiPanel.addChild new SpriteImage 'TopBar.png'
+    @spawnTank = new CooldownButton (new SpriteImage 'Tank.png'), 5000
     @spawnTank.setPosition 5, 0
     @spawnTank.clickAction = (() ->
       socket.emit('add unit', {'playerId': @player.id, 'type': 'tank'})
     ).bind this
-    @spawnSoldier = new CooldownButton (new Rect 0, 0, 50, 50, 'green'), 5000
+    @spawnSoldier = new CooldownButton (new SpriteImage 'Soldier.png'), 5000
     @spawnSoldier.setPosition 65, 0
     @spawnSoldier.clickAction = (() ->
       socket.emit('add unit', {'playerId': @player.id, 'type': 'soldier'})
     ).bind this
+    @spawnJeep = new CooldownButton (new SpriteImage 'Jeep.png'), 5000
+    @spawnJeep.setPosition 125, 0
+    @spawnJeep.clickAction = (() ->
+      socket.emit('add unit', {'playerId': @player.id, 'type': 'jeep'})
+    ).bind this
     @uiPanel.addChild @spawnTank
     @uiPanel.addChild @spawnSoldier
+    @uiPanel.addChild @spawnJeep
 
     @addChild @map
     @addChild @uiPanel
@@ -107,6 +133,9 @@ class window.Game extends Scene
 
 
   update: (dt) ->
+    if @endGame
+      return
+
     if @refresh
       @refresh = false
       for u in @player.units
