@@ -38,7 +38,7 @@ class window.Game extends Scene
 
   addUnit: (playerId) ->
     console.log this
-    unit = new Unit(playerId, 1.1, 'hibiki.png', 1, 25, 10)
+    unit = new Tank(@playerId, 1.1, 10)
     if playerId == @player
       unit.setPosition 100, 100
       unit.setDirection 1
