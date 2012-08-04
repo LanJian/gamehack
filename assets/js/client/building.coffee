@@ -11,3 +11,8 @@ class window.Building extends GameObject
 
   takeDamage: (dmg) ->
     @life -= dmg
+    @lifebar.updateLife @life, 1000
+
+  addLifebar: (lifebar) ->
+    @lifebar = lifebar
+    @addChild @lifebar

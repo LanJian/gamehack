@@ -42,6 +42,11 @@ class window.Game extends Scene
     @addBase @player.id
     @addBase @opponent.id
 
+    playerBaseLifebar = new Lifebar 0, -10, 100, 10
+    opponentBaseLifebar = new Lifebar 0, -10, 100, 10
+    @player.mainBase.addLifebar playerBaseLifebar
+    @opponent.mainBase.addLifebar opponentBaseLifebar
+
     if @player.id > @opponent.id
       @map.position.x = -@map.size.w + @canvas.width
 
