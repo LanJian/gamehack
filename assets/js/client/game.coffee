@@ -26,29 +26,45 @@ class window.Game extends Scene
     @onKeyDown 37, ( -> @scroll -6).bind this
 
     @addChild @map
-    @addUnit @opponent
+    #@addUnit @opponent
 
   addBase: (playerId) ->
     building = new Building playerId
     # fine for now, but maybe use a Player object later?
     if playerId == @player
-      building.setPosition 0, 50
+      if @player < @opponent
+        building.setPosition 0, 50
+      else
+        building.setPosition @map.size.w-building.size.w, 50
       building.addListener 'click', ( -> @addUnit @player).bind this
     else
-      building.setPosition @map.size.w-building.size.w, 50
+      if @player > @opponent
+        building.setPosition 0, 50
+      else
+        building.setPosition @map.size.w-building.size.w, 50
     @map.addChild building
 
   addUnit: (playerId) ->
+    height = 270
     if playerId == @player
-      unit = new Tank(@playerId, 1.1, 10, 'blue')
-      unit.setPosition 100, 270
-      unit.setDirection 1
-      console.log ['unit', unit.size.w, unit.size.h]
-      unit.addListener 'click', -> console.log 'click unit'
+      if @player < @opponent
+        unit = new Tank(@player, 1.1, 10, 'blue')
+        unit.setPosition 100, height
+        unit.setDirection 1
+      else
+        unit = new Tank(@player, 1.1, 10, 'red')
+        unit.setPosition @map.size.w-100, height
+        unit.setDirection -1
     else
-      unit = new Tank(@playerId, 1.1, 10, 'red')
-      unit.setPosition @map.size.w-100, 270
-      unit.setDirection -1
+      if @player < @opponent
+        unit = new Tank(@opponent, 1.1, 10, 'blue')
+        unit.setPosition 100, height
+        unit.setDirection 1
+      else
+        unit = new Tank(@opponent, 1.1, 10, 'red')
+        unit.setPosition @map.size.w-100, height
+        unit.setDirection -1
+    unit.addListener 'click', -> console.log 'click unit'
     @map.addChild unit
 
 
