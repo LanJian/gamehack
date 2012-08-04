@@ -18,11 +18,17 @@ class window.Sprite extends Component
 
 
   onSpriteImageLoaded: (evt) ->
-    if not evt.target in @spriteSheets
+    found = false
+    for key, val of @spriteSheets
+      if val == evt.target
+        found = true
+        break
+    if not found
       return
+
     # Set size
     w = h = 0
-    for spr in @spriteSheets
+    for key, spr of @spriteSheets
       for f in spr.getData()
         if f.w > w
           w = f.w

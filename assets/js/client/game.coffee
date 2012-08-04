@@ -37,14 +37,14 @@ class window.Game extends Scene
     else
       building.setPosition @map.size.w-building.size.w, 50
     @map.addChild building
-    console.log @map.children
 
   addUnit: (playerId) ->
-    console.log this
     if playerId == @player
       unit = new Tank(@playerId, 1.1, 10, 'blue')
       unit.setPosition 100, 100
       unit.setDirection 1
+      console.log ['unit', unit.size.w, unit.size.h]
+      unit.addListener 'click', -> console.log 'click unit'
     else
       unit = new Tank(@playerId, 1.1, 10, 'red')
       unit.setPosition @map.size.w-100, 100
