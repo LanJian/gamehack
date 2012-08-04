@@ -17,13 +17,8 @@ app.get('/', (req, res) ->
   return res.render('index')
 )
 
-io.sockets.on('connection', (socket) ->
-  console.log "connection"
-  socket.on('blah', (data) ->
-    #io.sockets.emit('chat message', data);
-    console.log "blah"
-  )
-)
+# Game event logic
+require(__dirname + '/controllers/gameEvents')(io)
 
 server.listen 3000
 console.log "Listening on port 3000"
