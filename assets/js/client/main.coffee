@@ -46,4 +46,5 @@ socket.on('game over', (data) ->
     alert 'you lose! new game starting in 5 seconds'
   else
     alert 'you win! new game starting in 5 seconds'
+  game.reset()
 )
