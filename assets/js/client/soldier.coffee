@@ -2,15 +2,15 @@ class window.Soldier extends Unit
   constructor: (playerId, @objectId, @speed, color) ->
     if color == 'blue'
       spriteMap = { 'moving': (new SpriteSheet 'BlueSoldierMoving.png', 1, 6),
-      'attacking' : (new SpriteSheet 'BlueTankAttacking.png', 1, 4)} 
+      'attacking' : (new SpriteSheet 'BlueSoldierAttacking.png', 1, 2)} 
     else 
       spriteMap = { 'moving': (new SpriteSheet 'RedSoldierMoving.png', 1, 6),
-      'attacking' : (new SpriteSheet 'RedTankAttacking.png', 1, 4)} 
+      'attacking' : (new SpriteSheet 'RedSoldierAttacking.png', 1, 2)} 
 
     super playerId, @objectId, spriteMap
 
     @sprite.addAnimation 'move', 'moving', 0, 5, 24
-    @sprite.addAnimation 'attack', 'attacking', 0, 3, 24
+    @sprite.addAnimation 'attack', 'attacking', 0, 1, 12
     console.log @sprite.animations
     @addListener 'click', ((evt) ->
       @attack()).bind this
