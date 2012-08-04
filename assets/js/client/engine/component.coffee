@@ -14,7 +14,7 @@ class window.Component
 
 
   onResize: ->
-    #console.log [this, 'resize']
+    console.log [this, 'resize']
     w = @size.w
     h = @size.h
     for c in @children

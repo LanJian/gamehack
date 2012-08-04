@@ -1,9 +1,9 @@
 class window.Building extends GameObject
   constructor: (playerId) ->
     super playerId
-    @setSize 200, 300
 
-    sprite = new Rect 0, 0, @size.w, @size.h
+    sprite = new SpriteImage 'building.png'
+    console.log ['sprite', sprite.size.w, sprite.size.h]
     @addChild sprite
 
     # Building Stats
