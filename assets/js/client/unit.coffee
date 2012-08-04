@@ -5,7 +5,7 @@ class window.Unit extends GameObject
 
     @sprite = new Sprite
     @sprite.addSpriteSheet key, spriteMap[key] for key,value of spriteMap
-    
+
     @addChild @sprite
 
     # Unit Stats
@@ -44,7 +44,7 @@ class window.Unit extends GameObject
     @position.x += (@objectDirection * x)
 
   update: (dt) ->
-    @move((@moveSpeed * dt)/1000);
+    @move((@moveSpeed * dt)/1000)
     super dt
 
   setDirection: (direction) ->

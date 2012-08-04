@@ -1,5 +1,5 @@
 class window.Soldier extends Unit
-  constructor: (playerId, @objectId, @speed, color) ->
+  constructor: (playerId, @objectId, color) ->
     if color == 'blue'
       spriteMap = { 'moving': (new SpriteSheet 'BlueSoldierMoving.png', 1, 6),
       'attacking' : (new SpriteSheet 'BlueSoldierAttacking.png', 1, 2)} 
@@ -16,7 +16,7 @@ class window.Soldier extends Unit
       @attack()).bind this
 
     @sprite.play 'move'
-    
+
     # Unit Stats
     @life = 10
     @moveSpeed = 20

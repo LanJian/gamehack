@@ -10,6 +10,7 @@ class window.SpriteImage extends Component
   onImageLoaded: ->
     @loaded = true
     @setSize @image.width, @image.height
+    console.log [@image, @size.w, @size.h]
 
 
   draw: (ctx) ->

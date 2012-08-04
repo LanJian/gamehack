@@ -29,22 +29,25 @@ class window.Game extends Scene
     #@addUnit @opponent
 
   addBase: (playerId) ->
+    height = 210
     building = new Building playerId
+    building.setSize 226, 100
+    console.log [building.size.w, building.size.h]
     # fine for now, but maybe use a Player object later?
     if playerId == @player
       if @player < @opponent
-        building.setPosition 0, 50
+        building.setPosition 0, height
       else
-        building.setPosition @map.size.w-building.size.w, 50
+        building.setPosition @map.size.w-building.size.w, height
       #building.addListener 'click', ( -> @addUnit @player).bind this
       building.addListener 'click', (() ->
         socket.emit('add unit', {'playerId': @player})
       ).bind this
     else
       if @player > @opponent
-        building.setPosition 0, 50
+        building.setPosition 0, height
       else
-        building.setPosition @map.size.w-building.size.w, 50
+        building.setPosition @map.size.w-building.size.w, height
     @map.addChild building
 
   addUnit: (playerId, unitId, type) ->
@@ -54,31 +57,31 @@ class window.Game extends Scene
     if playerId == @player
       if @player < @opponent
         if type == 'tank'
-          unit = new Tank(@player, 1.1, 10, 'blue')
+          unit = new Tank(@player, 1.1, 'blue')
         else
-          unit = new Soldier(@player, 1.1, 5, 'blue')
+          unit = new Soldier(@player, 1.1, 'blue')
         unit.setPosition 100, height
         unit.setDirection 1
       else
         if type == 'tank'
-          unit = new Tank(@player, 1.1, 10, 'red')
+          unit = new Tank(@player, 1.1, 'red')
         else
-          unit = new Soldier(@player, 1.1, 5, 'red')
+          unit = new Soldier(@player, 1.1, 'red')
         unit.setPosition @map.size.w-100, height
         unit.setDirection -1
     else
       if @player > @opponent
         if type == 'tank'
-          unit = new Tank(@player, 1.1, 10, 'red')
+          unit = new Tank(@player, 1.1, 'blue')
         else
-          unit = new Soldier(@player, 1.1, 5, 'red')
+          unit = new Soldier(@player, 1.1, 'blue')
         unit.setPosition 100, height
         unit.setDirection 1
       else
         if type == 'tank'
-          unit = new Tank(@player, 1.1, 10, 'blue')
+          unit = new Tank(@player, 1.1, 'red')
         else
-          unit = new Soldier(@player, 1.1, 5, 'blue')
+          unit = new Soldier(@player, 1.1, 'red')
         unit.setPosition @map.size.w-100, height
         unit.setDirection -1
     unit.addListener 'click', -> console.log 'click unit'
