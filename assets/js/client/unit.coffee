@@ -44,10 +44,10 @@ class window.Unit extends GameObject
 ###
 
   move: (x) ->
-      @position.x += (@objectDirection * x)
+    @position.x += (@objectDirection * x)
 
   update: (dt) ->
-    @move((@moveSpeed * dt)/1000, 'right');
+    @move((@moveSpeed * dt)/1000);
     super dt
 
   setDirection: (direction) ->
