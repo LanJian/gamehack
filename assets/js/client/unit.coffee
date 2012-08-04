@@ -1,6 +1,6 @@
 class window.Unit extends GameObject
-  constructor: () ->
-    super()
+  constructor: (playerId) ->
+    super playerId
 
     spriteSheet = new SpriteSheet 'hibiki.png', 1, 25
 

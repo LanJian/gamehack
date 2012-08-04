@@ -1,2 +1,3 @@
-class GameObject extends Component
+class window.GameObject extends Component
   constructor: (@playerId) ->
+    super()
