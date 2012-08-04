@@ -1,13 +1,11 @@
 class window.Unit extends GameObject
-  constructor: (playerId, @objectId, objectImageName, numRows, numColumns, @speed) ->
+  constructor: (playerId, @objectId, spriteMap, @speed) ->
     super playerId
     @objectDirection
 
-    spriteSheet = new SpriteSheet objectImageName, numRows, numColumns
-
     sprite = new Sprite
-    sprite.addSpriteSheet '*', spriteSheet
-    sprite.addAnimation 'idle', '*', 0, 25, 24
+    sprite.addSpriteSheet key, spriteMap[key] for key,value of spriteMap
+    sprite.addAnimation 'idle', 'moving', 0, 5, 24
     console.log sprite.animations
     sprite.play 'idle'
 
@@ -49,7 +47,7 @@ class window.Unit extends GameObject
       @position.x += (@objectDirection * x)
 
   update: (dt) ->
-    @move((@speed * dt)/1000, 'right');
+    @move((@moveSpeed * dt)/1000, 'right');
     super dt
 
   setDirection: (direction) ->
