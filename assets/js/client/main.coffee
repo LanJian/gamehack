@@ -29,6 +29,10 @@ socket.on("new game", (data) ->
   console.log 'id ' + id + ' opp ' + opponentId
 )
 
+socket.on('waiting for player', (data) ->
+  alert "waiting for a second player to join"
+)
+
 socket.on('in queue', (data) ->
   alert "players are playing, you're in line, refresh"
 )
@@ -41,9 +45,10 @@ socket.on('add unit', (data) ->
 socket.on('game over', (data) ->
   console.log data
   if data[id] <= 0 and data[opponentId] <= 0
-    alert 'tie! you both lose - refresh to play again'
+    alert 'tie! you both lose! new game starting'
   else if data[id] <= 0
-    alert 'you lose! refresh to play again'
+    alert 'you lose! new game starting'
   else
-    alert 'you win! refresh to play again'
+    alert 'you win! new game starting'
+  game.reset()
 )

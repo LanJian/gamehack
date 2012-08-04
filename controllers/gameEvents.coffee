@@ -4,6 +4,9 @@ playerOneId = 0
 playerTwoId = 0
 module.exports = (io) ->
   io.sockets.on('connection', (socket) ->
+    if playerCounter == 0
+      socket.emit('waiting for player')
+
     if playerCounter >= 2
       socket.emit('in queue')
       return

@@ -5,6 +5,7 @@ class window.Game extends Scene
     @opponent = new Player opponentId
     @refresh = false
     @endGame = false
+    @size.w+500
 
     @init()
 
@@ -33,7 +34,7 @@ class window.Game extends Scene
 
   init: ->
     @map = new GameObject @player.id
-    @map.setSize @size.w+500, @size.h
+    @map.setSize @size.w, @size.h
 
     bgSprite = new SpriteImage 'background.png'
     @map.addChild bgSprite
@@ -82,13 +83,15 @@ class window.Game extends Scene
       if @player.id < @opponent.id
         building.setPosition 0, height
       else
-        building.setPosition @map.size.w-building.size.w, height
+        #building.setPosition @map.size.w-building.size.w, height
+        building.setPosition 1214, height
       @player.addBuilding building
     else
       if @player.id > @opponent.id
         building.setPosition 0, height
       else
-        building.setPosition @map.size.w-building.size.w, height
+        #building.setPosition @map.size.w-building.size.w, height
+        building.setPosition 1214, height
       @opponent.addBuilding building
     @map.addChild building
 
