@@ -25,3 +25,7 @@ socket.on("new game", (data) ->
   game = new Game canvas, id, opponentId
   console.log 'id ' + id + ' opp ' + opponentId
 )
+
+socket.on('in queue', (data) ->
+  alert "players are playing, you're in line, refresh"
+)

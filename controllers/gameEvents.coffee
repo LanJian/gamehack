@@ -4,6 +4,10 @@ playerOneId = 0
 playerTwoId = 0
 module.exports = (io) ->
   io.sockets.on('connection', (socket) ->
+    if playerCounter >= 2
+      socket.emit('in queue')
+      return
+
     console.log "connection"
     socket.emit('player id', {'id': playerIdCounter})
 
