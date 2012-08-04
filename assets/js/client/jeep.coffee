@@ -1,5 +1,5 @@
 class window.Jeep extends Unit
-  @coolDown: 5500
+  @coolDown: 7000
   constructor: (playerId, @objectId, color) ->
     if color == 'blue'
       spriteMap = {

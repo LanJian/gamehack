@@ -1,5 +1,5 @@
 class window.Soldier extends Unit
-  @coolDown: 2500
+  @coolDown: 2000
   constructor: (playerId, @objectId, color) ->
     if color == 'blue'
       spriteMap = { 'moving': (new SpriteSheet 'BlueSoldierMoving.png', 1, 6),
