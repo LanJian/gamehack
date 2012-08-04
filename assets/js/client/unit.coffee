@@ -1,4 +1,4 @@
-class window.Unit extends Component
+class window.Unit extends GameObject
   constructor: () ->
     super()
 
