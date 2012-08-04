@@ -2,7 +2,7 @@ class window.Rect extends Component
   constructor: (x, y, w, h, @color='black') ->
     super x, y, w, h
 
-  containsPoint: (x, y) ->
+  isPointInside: (x, y) ->
     x >= @position.x and x <= @position.x + @size.w and
       y >= @position.y and y <= @position.y + @size.h
 

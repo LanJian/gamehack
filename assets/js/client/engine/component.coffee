@@ -98,7 +98,7 @@ class window.Component
   # x and y are in local coordinates
   containsPoint: (x, y) ->
     rect = new Rect(0, 0, @size.w, @size.h)
-    rect.containsPoint x, y
+    rect.isPointInside x, y
 
 
   update: (dt) ->

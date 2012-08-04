@@ -26,7 +26,24 @@ class window.Game extends Scene
       @scroll 6).bind this
     @onKeyDown 37, ( -> @scroll -6).bind this
 
+    # UI
+    @uiPanel = new Component 50, 5, @canvas.width-100, 50
+    @uiPanel.addChild new Rect 0, 0, @uiPanel.size.w, @uiPanel.size.h, 'red'
+    @spawnTank = new CooldownButton (new Rect 0, 0, 50, 50, 'green'), 5000
+    @spawnTank.setPosition 5, 0
+    @spawnTank.clickAction = (() ->
+      socket.emit('add unit', {'playerId': @player.id, 'type': 'tank'})
+    ).bind this
+    @spawnSoldier = new CooldownButton (new Rect 0, 0, 50, 50, 'green'), 5000
+    @spawnSoldier.setPosition 65, 0
+    @spawnSoldier.clickAction = (() ->
+      socket.emit('add unit', {'playerId': @player.id, 'type': 'soldier'})
+    ).bind this
+    @uiPanel.addChild @spawnTank
+    @uiPanel.addChild @spawnSoldier
+
     @addChild @map
+    @addChild @uiPanel
 
   addBase: (playerId) ->
     height = 210
@@ -38,9 +55,6 @@ class window.Game extends Scene
         building.setPosition 0, height
       else
         building.setPosition @map.size.w-building.size.w, height
-      building.addListener 'click', (() ->
-        socket.emit('add unit', {'playerId': @player.id})
-      ).bind this
       @player.addBuilding building
     else
       if @player.id > @opponent.id
@@ -67,7 +81,7 @@ class window.Game extends Scene
           unit = new Tank(@player.id, 1.1, 'red')
         else
           unit = new Soldier(@player.id, 1.1, 'red')
-        unit.setPosition @map.size.w-100, height
+        unit.setPosition @map.size.w-135, height
         unit.setDirection -1
       @player.addUnit unit
     else
@@ -84,7 +98,7 @@ class window.Game extends Scene
           unit = new Tank(@opponent.id, 1.1, 'red')
         else
           unit = new Soldier(@opponent.id, 1.1, 'red')
-        unit.setPosition @map.size.w-100, height
+        unit.setPosition @map.size.w-135, height
         unit.setDirection -1
       @opponent.addUnit unit
     unit.addListener 'click', -> console.log 'click unit'
