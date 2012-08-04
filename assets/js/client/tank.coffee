@@ -4,8 +4,13 @@ class window.Tank extends Unit
       spriteMap = { 'moving': new SpriteSheet 'BlueTankMoving.png', 1, 6}
     else 
     	spriteMap = { 'moving': new SpriteSheet 'RedTankMoving.png', 1, 6} 
-    super playerId, @objectId, spriteMap
 
+    super playerId, @objectId, spriteMap
+		
+    @sprite.addAnimation 'move', 'moving', 0, 5, 24
+    console.log @sprite.animations
+    @sprite.play 'move'
+    
     # Unit Stats
     @life = 100
     @moveSpeed = 30

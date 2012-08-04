@@ -1,15 +1,12 @@
 class window.Unit extends GameObject
-  constructor: (playerId, @objectId, spriteMap, @speed) ->
+  constructor: (playerId, @objectId, spriteMap, animationMap, @speed) ->
     super playerId
     @objectDirection
 
-    sprite = new Sprite
-    sprite.addSpriteSheet key, spriteMap[key] for key,value of spriteMap
-    sprite.addAnimation 'idle', 'moving', 0, 5, 24
-    console.log sprite.animations
-    sprite.play 'idle'
-
-    @addChild sprite
+    @sprite = new Sprite
+    @sprite.addSpriteSheet key, spriteMap[key] for key,value of spriteMap
+    
+    @addChild @sprite
 
     # Unit Stats
     @life = undefined
