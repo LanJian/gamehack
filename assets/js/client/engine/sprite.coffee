@@ -1,11 +1,11 @@
 class window.Sprite extends Component
-  constructor: (@spriteSheet) ->
+  constructor: () ->
     super()
 
-    @animations = []
-    @addAnimation 'all', 0, @spriteSheet.getNumFrames()
+    @spriteSheets = {}
+    @animations = {}
 
-    @playingAnimation = @animations[0]
+    @playingAnimation = 'none'
     @isPlaying = false
 
     @addListener 'spriteImageLoaded', @onSpriteImageLoaded.bind this
@@ -13,27 +13,30 @@ class window.Sprite extends Component
     @reset()
 
 
+  addSpriteSheet: (id, spriteSheet) ->
+    @spriteSheets[id] = spriteSheet
+
+
   onSpriteImageLoaded: (evt) ->
-    if not evt.target == @spriteSheet
+    if not evt.target in @spriteSheets
       return
     # Set size
     w = h = 0
-    for f in @spriteSheet.getData()
-      if f.w > w
-        w = f.w
-      if f.h > h
-        h = f.h
+    for spr in @spriteSheets
+      for f in spr.getData()
+        if f.w > w
+          w = f.w
+        if f.h > h
+          h = f.h
     @setSize w, h
 
 
-
-  addAnimation: (id, startFrame, duration, fps=60) ->
-    @animations.push (
-      id: id
+  addAnimation: (id, spriteSheetId, startFrame, duration, fps=60) ->
+    @animations[id] =
+      spriteSheet: spriteSheetId
       startFrame: startFrame
       duration: duration
       frameInterval: 1000/fps
-    )
 
 
   reset: ->
@@ -42,9 +45,8 @@ class window.Sprite extends Component
 
 
   play: (id) ->
-    if id and @playingAnimation.id != id
-      animation = (@animations.filter (anim) -> anim.id == id)[0]
-      @playingAnimation = animation
+    if id and @playingAnimation != id
+      @playingAnimation = id
       @reset()
 
     @isPlaying = true
@@ -55,22 +57,30 @@ class window.Sprite extends Component
 
 
   update: (dt) ->
-    if @isPlaying and @spriteSheet.isReady()
+    anim = @animations[@playingAnimation]
+    if not anim
+      return
+    spriteSheet = @spriteSheets[anim.spriteSheet]
+    if spriteSheet and  @isPlaying and spriteSheet.isReady()
       @curInterval += dt
-      if @curInterval >= @playingAnimation.frameInterval
+      if @curInterval >= anim.frameInterval
         @frameIndex++
-        @frameIndex = @frameIndex % @playingAnimation.duration
-        @curInterval = @curInterval % @playingAnimation.frameInterval
+        @frameIndex = @frameIndex % anim.duration
+        @curInterval = @curInterval % anim.frameInterval
 
     super dt
 
 
   draw: (ctx) ->
-    if @spriteSheet.isReady()
-      f = @spriteSheet.getData()[@frameIndex]
+    anim = @animations[@playingAnimation]
+    if not anim
+      return
+    spriteSheet = @spriteSheets[anim.spriteSheet]
+    if spriteSheet and spriteSheet.isReady()
+      f = spriteSheet.getData()[@frameIndex]
       dw = if @size.w == 0 then f.w else @size.w
       dh = if @size.h == 0 then f.h else @size.h
-      ctx.drawImage @spriteSheet.getImage(), f.x, f.y, f.w, f.h,
+      ctx.drawImage spriteSheet.getImage(), f.x, f.y, f.w, f.h,
         @position.x, @position.y, dw, dh
 
     super ctx

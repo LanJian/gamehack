@@ -5,8 +5,10 @@ class window.Unit extends GameObject
 
     spriteSheet = new SpriteSheet objectImageName, numRows, numColumns
 
-    sprite = new Sprite spriteSheet
-    sprite.addAnimation 'idle', 0, 25, 24
+    sprite = new Sprite
+    sprite.addSpriteSheet '*', spriteSheet
+    sprite.addAnimation 'idle', '*', 0, 25, 24
+    console.log sprite.animations
     sprite.play 'idle'
 
     @addChild sprite
