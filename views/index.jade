@@ -9,6 +9,7 @@ head
 
   // CSS
   != css("bootstrap.min.css")
+  != css("app.css")
 
   // JS
   != js('jquery-1.7.2.min.js')
@@ -24,8 +25,9 @@ head
   != js('client/main')
 
 body
-  block content
-    h1 random stuff
+  div.container
+    div.row
+      h1 random stuff
     canvas#canvas(tabindex='0', width=800, height=600)
       Browser not compatible with HTML5 canvas
 
