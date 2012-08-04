@@ -1,13 +1,11 @@
 class window.Game extends Scene
   constructor: (canvas) ->
     super canvas
-    @player1 = 1
-
     @init()
 
 
   init: ->
-    base = new Building @player1
-    base.setPosition 0, 300
-    console.log base
-    @addChild base
+    unit = new Unit(1, 1.1, 'hibiki.png', 1, 25, 10)
+    unit.setPosition 100, 100
+    unit.setDirection 1
+    @addChild unit
