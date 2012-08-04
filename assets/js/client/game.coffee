@@ -62,7 +62,6 @@ class window.Game extends Scene
           unit = new Soldier(@player.id, 1.1, 'blue')
         unit.setPosition 100, height
         unit.setDirection 1
-        @player.addUnit unit
       else
         if type == 'tank'
           unit = new Tank(@player.id, 1.1, 'red')
@@ -70,7 +69,7 @@ class window.Game extends Scene
           unit = new Soldier(@player.id, 1.1, 'red')
         unit.setPosition @map.size.w-100, height
         unit.setDirection -1
-        @opponent.addUnit unit
+      @player.addUnit unit
     else
       if @player.id > @opponent.id
         if type == 'tank'
@@ -79,7 +78,7 @@ class window.Game extends Scene
           unit = new Soldier(@opponent.id, 1.1, 'blue')
         unit.setPosition 100, height
         unit.setDirection 1
-        @player.addUnit unit
+        @opponent.addUnit unit
       else
         if type == 'tank'
           unit = new Tank(@opponent.id, 1.1, 'red')
@@ -87,7 +86,7 @@ class window.Game extends Scene
           unit = new Soldier(@opponent.id, 1.1, 'red')
         unit.setPosition @map.size.w-100, height
         unit.setDirection -1
-        @opponent.addUnit unit
+      @opponent.addUnit unit
     unit.addListener 'click', -> console.log 'click unit'
     @map.addChild unit
 
