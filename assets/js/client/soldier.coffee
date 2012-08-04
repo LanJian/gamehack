@@ -1,5 +1,5 @@
 class window.Soldier extends Unit
-  @coolDown: 2000
+  @coolDown: 2500
   constructor: (playerId, @objectId, color) ->
     if color == 'blue'
       spriteMap = { 'moving': (new SpriteSheet 'BlueSoldierMoving.png', 1, 6),
@@ -21,6 +21,6 @@ class window.Soldier extends Unit
     # Unit Stats
     @life = 50
     @moveSpeed = 20
-    @damage = 5
+    @damage = 8
     @attackRange = 70
-    @attackSpeed = 100
+    @attackSpeed = 200

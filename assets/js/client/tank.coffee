@@ -1,5 +1,5 @@
 class window.Tank extends Unit
-  @coolDown: 10000
+  @coolDown: 12000
   constructor: (playerId, @objectId, color) ->
     if color == 'blue'
       spriteMap = {
@@ -25,6 +25,6 @@ class window.Tank extends Unit
     # Unit Stats
     @life = 500
     @moveSpeed = 10
-    @damage = 50
+    @damage = 100
     @attackRange = 150
-    @attackSpeed = 2000
+    @attackSpeed = 1000
