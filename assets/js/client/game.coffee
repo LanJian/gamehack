@@ -166,6 +166,7 @@ class window.Game extends Scene
 
     if @player and @opponent
       for unit in @player.units
+        canAttack = true
         if unit.life
           if unit.life <= 0
             @map.removeChild unit
@@ -175,10 +176,12 @@ class window.Game extends Scene
           if unit.inRange enemy
             console.log 'inrange'
             unit.attack enemy
+            canAttack = false
             break
-        if unit.inRange @opponent.mainBase
+        if unit.inRange @opponent.mainBase and canAttack
           unit.attack @opponent.mainBase
       for unit in @opponent.units
+        canAttack = true
         if unit.life
           if unit.life <= 0
             @map.removeChild unit
@@ -187,8 +190,9 @@ class window.Game extends Scene
         for enemy in @player.units
           if unit.inRange enemy
             unit.attack enemy
+            canAttack = false
             break
-        if unit.inRange @player.mainBase
+        if unit.inRange @player.mainBase and canAttack
           unit.attack @player.mainBase
 
       if !@endGame and @player.mainBase.life <= 0
