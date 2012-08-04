@@ -1,5 +1,10 @@
 class window.Jeep extends Unit
   @coolDown: 7000
+  @spLife: 200
+  @spSpeed: 50
+  @spDamage: 25
+  @spRange: 140
+  @spAs: 600
   constructor: (playerId, @objectId, color) ->
     if color == 'blue'
       spriteMap = {
@@ -21,8 +26,8 @@ class window.Jeep extends Unit
     @sprite.play 'move'
 
     # Unit Stats
-    @life = 200
-    @moveSpeed = 50
-    @damage = 25
-    @attackRange = 140
-    @attackSpeed = 600
+    @life = Jeep.spLife
+    @moveSpeed = Jeep.spSpeed
+    @damage = Jeep.spDamage
+    @attackRange = Jeep.spRange
+    @attackSpeed = Jeep.spAs

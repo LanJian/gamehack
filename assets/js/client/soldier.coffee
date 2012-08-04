@@ -1,5 +1,10 @@
 class window.Soldier extends Unit
   @coolDown: 2000
+  @spLife: 100
+  @spSpeed: 20
+  @spDamage: 8
+  @spRange: 110
+  @spAs: 200
   constructor: (playerId, @objectId, color) ->
     if color == 'blue'
       spriteMap = { 'moving': (new SpriteSheet 'BlueSoldierMoving.png', 1, 6),
@@ -19,8 +24,10 @@ class window.Soldier extends Unit
     @sprite.play 'move'
 
     # Unit Stats
-    @life = 100
-    @moveSpeed = 20
-    @damage = 8
-    @attackRange = 110
-    @attackSpeed = 200
+    @life = Soldier.spLife
+    @moveSpeed = Soldier.spSpeed
+    @damage = Soldier.spDamage
+    @attackRange = Soldier.spRange
+    @attackSpeed = Soldier.spAs
+
+    console.log ['spawn: ', this]

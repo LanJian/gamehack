@@ -6,6 +6,7 @@ class window.Game extends Scene
     @refresh = false
     @endGame = false
     @size.w += 500
+    @upgradeCoolDown = 5000
 
     @init()
 
@@ -28,6 +29,7 @@ class window.Game extends Scene
     @opponent = new Player (opponentId || @opponent.id)
     @refresh = false
     @endGame = false
+
 
     this.init()
 
@@ -79,8 +81,77 @@ class window.Game extends Scene
     @uiPanel.addChild @spawnSoldier
     @uiPanel.addChild @spawnJeep
 
+    @dmgUp = new CooldownButton (new SpriteImage 'dmgUp.png'), @upgradeCoolDown
+    @dmgUp.setPosition 700, 0
+    @dmgUp.clickAction = (() ->
+      @player.dmgUp()
+      @resetUnitCooldown 8000
+      @upgradeCoolDown += 3000
+      @resetUpgradeCooldown @upgradeCoolDown
+    ).bind this
+    @uiPanel.addChild @dmgUp
+    @lifeUp = new CooldownButton (new SpriteImage 'lifeUp.png'), @upgradeCoolDown
+    @lifeUp.setPosition 750, 0
+    @lifeUp.clickAction = (() ->
+      @player.lifeUp()
+      @resetUnitCooldown 8000
+      @upgradeCoolDown += 3000
+      @resetUpgradeCooldown @upgradeCoolDown
+    ).bind this
+    @uiPanel.addChild @lifeUp
+    @rangeUp = new CooldownButton (new SpriteImage 'rangeUp.png'), @upgradeCoolDown
+    @rangeUp.setPosition 500, 0
+    @rangeUp.clickAction = (() ->
+      @player.rangeUp()
+      @resetUnitCooldown 8000
+      @upgradeCoolDown += 3000
+      @resetUpgradeCooldown @upgradeCoolDown
+    ).bind this
+    @uiPanel.addChild @rangeUp
+    @cdUp = new CooldownButton (new SpriteImage 'cdUp.png'), @upgradeCoolDown
+    @cdUp.setPosition 550, 0
+    @cdUp.clickAction = (() ->
+      @player.cdUp()
+      @resetUnitCooldown 8000
+      @upgradeCoolDown += 3000
+      @resetUpgradeCooldown @upgradeCoolDown
+    ).bind this
+    @uiPanel.addChild @cdUp
+    @speedUp = new CooldownButton (new SpriteImage 'speedUp.png'), @upgradeCoolDown
+    @speedUp.setPosition 600, 0
+    @speedUp.clickAction = (() ->
+      @player.speedUp()
+      @resetUnitCooldown 8000
+      @upgradeCoolDown += 3000
+      @resetUpgradeCooldown @upgradeCoolDown
+    ).bind this
+    @uiPanel.addChild @speedUp
+    @asUp = new CooldownButton (new SpriteImage 'asUp.png'), @upgradeCoolDown
+    @asUp.setPosition 650, 0
+    @asUp.clickAction = (() ->
+      @player.asUp()
+      @resetUnitCooldown 8000
+      @upgradeCoolDown += 3000
+      @resetUpgradeCooldown @upgradeCoolDown
+    ).bind this
+    @uiPanel.addChild @asUp
+
     @addChild @map
     @addChild @uiPanel
+
+  resetUpgradeCooldown: (coolDown) ->
+    console.log 'reset' + coolDown
+    @dmgUp.doCoolDown coolDown
+    @asUp.doCoolDown coolDown
+    @speedUp.doCoolDown coolDown
+    @lifeUp.doCoolDown coolDown
+    @cdUp.doCoolDown coolDown
+    @rangeUp.doCoolDown coolDown
+
+  resetUnitCooldown: (coolDown) ->
+    @spawnTank.doCoolDown coolDown
+    @spawnJeep.doCoolDown coolDown
+    @spawnSoldier.doCoolDown coolDown
 
   resetGlobalCooldown: (coolDown) ->
     @spawnTank.doCoolDown coolDown
