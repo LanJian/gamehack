@@ -47,7 +47,7 @@ class window.Event
    @keyDown: (keyCode) ->
      keyDowns[keyCode] = true
 
-     
+
    @keyUp: (keyCode) ->
      delete keyDowns[keyCode]
 
