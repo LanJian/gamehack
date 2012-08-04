@@ -32,7 +32,6 @@ class window.Game extends Scene
     height = 210
     building = new Building playerId
     building.setSize 226, 100
-    console.log [building.size.w, building.size.h]
     # fine for now, but maybe use a Player object later?
     if playerId == @player
       if @player < @opponent
@@ -52,8 +51,6 @@ class window.Game extends Scene
 
   addUnit: (playerId, unitId, type) ->
     height = 270
-    console.log 'add unit input ' + playerId
-    console.log 'playerId ' + @player
     if playerId == @player
       if @player < @opponent
         if type == 'tank'
