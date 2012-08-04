@@ -1,11 +1,15 @@
 class window.Tank extends Unit
-  constructor: (playerId, @objectId, @speed, color) ->
+  constructor: (playerId, @objectId, color) ->
     if color == 'blue'
-      spriteMap = { 'moving': (new SpriteSheet 'BlueTankMoving.png', 1, 6),
-      'attacking' : (new SpriteSheet 'BlueTankAttacking.png', 1, 4)} 
-    else 
-      spriteMap = { 'moving': (new SpriteSheet 'RedTankMoving.png', 1, 6),
-      'attacking' : (new SpriteSheet 'RedTankAttacking.png', 1, 4)} 
+      spriteMap = {
+        'moving': (new SpriteSheet 'BlueTankMoving.png', 1, 6),
+        'attacking' : (new SpriteSheet 'BlueTankAttacking.png', 1, 4)
+      }
+    else
+      spriteMap = {
+        'moving': (new SpriteSheet 'RedTankMoving.png', 1, 6),
+        'attacking' : (new SpriteSheet 'RedTankAttacking.png', 1, 4)
+      }
 
     super playerId, @objectId, spriteMap
 
@@ -16,7 +20,7 @@ class window.Tank extends Unit
       @attack()).bind this
 
     @sprite.play 'move'
-    
+
     # Unit Stats
     @life = 100
     @moveSpeed = 30

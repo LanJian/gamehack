@@ -57,31 +57,31 @@ class window.Game extends Scene
     if playerId == @player
       if @player < @opponent
         if type == 'tank'
-          unit = new Tank(@player, 1.1, 10, 'blue')
+          unit = new Tank(@player, 1.1, 'blue')
         else
-          unit = new Soldier(@player, 1.1, 5, 'blue')
+          unit = new Soldier(@player, 1.1, 'blue')
         unit.setPosition 100, height
         unit.setDirection 1
       else
         if type == 'tank'
-          unit = new Tank(@player, 1.1, 10, 'red')
+          unit = new Tank(@player, 1.1, 'red')
         else
-          unit = new Soldier(@player, 1.1, 5, 'red')
+          unit = new Soldier(@player, 1.1, 'red')
         unit.setPosition @map.size.w-100, height
         unit.setDirection -1
     else
       if @player > @opponent
         if type == 'tank'
-          unit = new Tank(@player, 1.1, 10, 'red')
+          unit = new Tank(@player, 1.1, 'blue')
         else
-          unit = new Soldier(@player, 1.1, 5, 'red')
+          unit = new Soldier(@player, 1.1, 'blue')
         unit.setPosition 100, height
         unit.setDirection 1
       else
         if type == 'tank'
-          unit = new Tank(@player, 1.1, 10, 'blue')
+          unit = new Tank(@player, 1.1, 'red')
         else
-          unit = new Soldier(@player, 1.1, 5, 'blue')
+          unit = new Soldier(@player, 1.1, 'red')
         unit.setPosition @map.size.w-100, height
         unit.setDirection -1
     unit.addListener 'click', -> console.log 'click unit'
