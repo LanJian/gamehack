@@ -5,3 +5,7 @@ body {
 .filler {
   height: 50px;
 }
+
+.mainCanvas {
+	outline: none;
+}
